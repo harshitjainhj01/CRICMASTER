@@ -1,0 +1,4 @@
+
+# Backup archives
+*.zip
+backend/.env
