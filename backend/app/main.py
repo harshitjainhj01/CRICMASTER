@@ -56,7 +56,11 @@ if FRONTEND_DIR.exists():
         StaticFiles(directory=FRONTEND_DIR / "assets"),
         name="assets",
     )
-
+    app.mount(
+        "/pages",
+        StaticFiles(directory=FRONTEND_DIR / "pages"),
+        name="pages",
+    )
 
 app.include_router(cricket_router)
 

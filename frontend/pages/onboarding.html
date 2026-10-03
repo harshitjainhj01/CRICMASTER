@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Welcome | CRICMASTER</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #07110d;
+            color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+        }
+
+        .card {
+            width: min(100%, 600px);
+
+            background: #0e1c16;
+
+            border: 1px solid #263b30;
+            border-radius: 18px;
+
+            padding: 35px;
+
+            box-shadow:
+                0 15px 50px rgba(0, 0, 0, 0.35);
+        }
+
+        .brand {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .brand h1 {
+            margin: 0;
+
+            font-size: 36px;
+            color: #35d16f;
+
+            letter-spacing: 1px;
+        }
+
+        .brand p {
+            margin-top: 10px;
+
+            color: #9ca9a2;
+            line-height: 1.5;
+        }
+
+        .field {
+            margin-top: 22px;
+        }
+
+        .field label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .field select {
+            width: 100%;
+
+            padding: 13px;
+
+            border: 1px solid #30483a;
+            border-radius: 9px;
+
+            background: #13251c;
+            color: #ffffff;
+
+            outline: none;
+        }
+
+        .field select:focus {
+            border-color: #35d16f;
+        }
+
+        .checkbox-area {
+            margin-top: 25px;
+
+            display: grid;
+            gap: 15px;
+        }
+
+        .checkbox-row {
+            display: flex;
+            align-items: flex-start;
+
+            gap: 10px;
+
+            color: #c6d0ca;
+
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .checkbox-row input {
+            margin-top: 3px;
+        }
+
+        .continue-btn {
+            width: 100%;
+
+            margin-top: 28px;
+
+            padding: 14px;
+
+            border: none;
+            border-radius: 10px;
+
+            background: #35d16f;
+            color: #061008;
+
+            font-size: 15px;
+            font-weight: 800;
+
+            cursor: pointer;
+        }
+
+        .continue-btn:hover {
+            background: #27bd60;
+        }
+
+        #onboardingStatus {
+            min-height: 22px;
+
+            margin-top: 16px;
+
+            text-align: center;
+
+            color: #9ca9a2;
+
+            font-size: 14px;
+        }
+
+        .note {
+            margin-top: 20px;
+
+            color: #748079;
+
+            text-align: center;
+
+            font-size: 12px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="card">
+
+        <div class="brand">
+
+            <h1>CRICMASTER 🏏</h1>
+
+            <p>
+                Welcome! Let's personalize your cricket
+                experience.
+            </p>
+
+        </div>
+
+
+        <form id="onboardingForm">
+
+
+            <div class="field">
+
+                <label for="cricketLevel">
+                    What is your cricket level?
+                </label>
+
+                <select
+                    id="cricketLevel"
+                    required
+                >
+                    <option value="">
+                        Select your level
+                    </option>
+
+                    <option value="beginner">
+                        Beginner
+                    </option>
+
+                    <option value="intermediate">
+                        Intermediate
+                    </option>
+
+                    <option value="advanced">
+                        Advanced
+                    </option>
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="favoriteFormat">
+                    Which format do you like most?
+                </label>
+
+                <select id="favoriteFormat">
+
+                    <option value="">
+                        Select format
+                    </option>
+
+                    <option value="test">
+                        Test
+                    </option>
+
+                    <option value="odi">
+                        ODI
+                    </option>
+
+                    <option value="t20">
+                        T20
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="favoriteTeam">
+                    Choose your favorite team
+                </label>
+
+                <select id="favoriteTeam">
+
+                    <option value="">
+                        Select team
+                    </option>
+
+                    <option value="India">
+                        India
+                    </option>
+
+                    <option value="Australia">
+                        Australia
+                    </option>
+
+                    <option value="England">
+                        England
+                    </option>
+
+                    <option value="New Zealand">
+                        New Zealand
+                    </option>
+
+                    <option value="South Africa">
+                        South Africa
+                    </option>
+
+                    <option value="Pakistan">
+                        Pakistan
+                    </option>
+
+                    <option value="Sri Lanka">
+                        Sri Lanka
+                    </option>
+
+                    <option value="West Indies">
+                        West Indies
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="checkbox-area">
+
+                <label class="checkbox-row">
+
+                    <input
+                        id="terms"
+                        type="checkbox"
+                        required
+                    >
+
+                    <span>
+                        I agree to the CRICMASTER Terms
+                        and Conditions.
+                    </span>
+
+                </label>
+
+
+                <label class="checkbox-row">
+
+                    <input
+                        id="privacy"
+                        type="checkbox"
+                        required
+                    >
+
+                    <span>
+                        I agree to the CRICMASTER Privacy
+                        Policy.
+                    </span>
+
+                </label>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="continue-btn"
+            >
+                Continue to CRICMASTER
+            </button>
+
+
+            <div id="onboardingStatus"></div>
+
+
+            <p class="note">
+                Your preferences help us personalize
+                matches, teams and cricket content.
+            </p>
+
+        </form>
+
+    </main>
+
+
+    <script type="module" src="/js/onboarding.js"></script>
+
+</body>
+</html>
