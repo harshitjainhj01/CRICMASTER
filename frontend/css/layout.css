@@ -1,0 +1,61 @@
+.match-card {
+    padding: 18px;
+}
+
+.match-status {
+    display: inline-block;
+
+    margin-bottom: 14px;
+    padding: 5px 9px;
+
+    border-radius: 999px;
+
+    background: rgba(53, 209, 111, 0.12);
+    color: var(--primary);
+
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.match-teams {
+    display: grid;
+    gap: 10px;
+}
+
+.team-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.team-name {
+    font-weight: 700;
+}
+
+.score {
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.match-meta {
+    margin-top: 16px;
+
+    color: var(--muted);
+    font-size: 12px;
+}
+
+@media (max-width: 800px) {
+
+    .topbar {
+        padding: 0 14px;
+    }
+
+    .topnav {
+        display: none;
+    }
+
+    .hero {
+        padding: 35px 24px;
+    }
+}
