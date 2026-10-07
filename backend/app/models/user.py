@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from sqlalchemy import Boolean, DateTime, Integer, String
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database.models_base import Base, TimestampMixin
 
@@ -62,4 +62,18 @@ class User(TimestampMixin, Base):
     last_login_at: Mapped[datetime | None] = mapped_column(
         DateTime(timezone=True),
         nullable=True,
+    )
+
+    profile = relationship(
+        "UserProfile",
+        back_populates="user",
+        uselist=False,
+        cascade="all, delete-orphan",
+    )
+
+    stake_points = relationship(
+        "StakePoints",
+        back_populates="user",
+        uselist=False,
+        cascade="all, delete-orphan",
     )

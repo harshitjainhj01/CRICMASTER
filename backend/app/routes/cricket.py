@@ -1,7 +1,9 @@
 from fastapi import APIRouter
 
-from app.services.cricket_api import CricketAPIError, cricket_api
-
+from app.services.cricket_api import (
+    CricketDataAPIError,
+    cricket_data,
+)
 
 router = APIRouter(
     prefix="/api/cricket",
@@ -9,41 +11,71 @@ router = APIRouter(
 )
 
 
-@router.get("/live")
-async def live_matches():
+def get_matches(payload: dict) -> list[dict]:
+    data = payload.get("data", [])
+
+    if isinstance(data, list):
+        return data
+
+    return []
+
+
+def is_live(match: dict) -> bool:
+    return bool(
+        match.get("matchStarted")
+        and not match.get("matchEnded")
+    )
+
+
+@router.get("/current")
+async def current_matches():
     try:
-        data = await cricket_api.get_live_scores()
+        payload = await cricket_data.get_current_matches()
+
+        matches = get_matches(payload)
 
         return {
             "success": True,
-            "provider": "sportmonks",
-            "data": data,
+            "provider": "cricketdata",
+            "count": len(matches),
+            "cached": payload.get("_cached", False),
+            "data": matches,
+            "info": payload.get("info", {}),
         }
 
-    except CricketAPIError as exc:
+    except CricketDataAPIError as exc:
         return {
             "success": False,
-            "provider": "sportmonks",
+            "provider": "cricketdata",
             "error": str(exc),
             "data": [],
         }
 
 
-@router.get("/today")
-async def today_matches():
+@router.get("/live")
+async def live_matches():
     try:
-        data = await cricket_api.get_today_scores()
+        payload = await cricket_data.get_current_matches()
+
+        matches = [
+            match
+            for match in get_matches(payload)
+            if is_live(match)
+        ]
 
         return {
             "success": True,
-            "provider": "sportmonks",
-            "data": data,
+            "provider": "cricketdata",
+            "count": len(matches),
+            "cached": payload.get("_cached", False),
+            "data": matches,
+            "info": payload.get("info", {}),
         }
 
-    except CricketAPIError as exc:
+    except CricketDataAPIError as exc:
         return {
             "success": False,
-            "provider": "sportmonks",
+            "provider": "cricketdata",
             "error": str(exc),
             "data": [],
         }

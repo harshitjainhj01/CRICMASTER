@@ -1,5 +1,11 @@
-from pathlib import Path
+from app.routes.auth import router as auth_router
+from app.routes.cricket import router as cricket_router
+from app.routes.matches import router as matches_router
+from app.routes.extra import router as extra_router
+from app.routes.onboarding import router as onboarding_router
+from app.routes.ipl import router as ipl_router
 
+from pathlib import Path
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
@@ -7,7 +13,6 @@ from fastapi.staticfiles import StaticFiles
 from sqlalchemy import text
 
 from app.database.connection import Base, engine, settings
-from app.routes.cricket import router as cricket_router
 
 # Import all models so SQLAlchemy knows about every table.
 from app import models  # noqa: F401
@@ -61,9 +66,13 @@ if FRONTEND_DIR.exists():
         StaticFiles(directory=FRONTEND_DIR / "pages"),
         name="pages",
     )
-
+app.include_router(ipl_router)
+app.include_router(auth_router)
+app.include_router(onboarding_router)
 app.include_router(cricket_router)
+app.include_router(matches_router)
 
+app.include_router(extra_router)
 
 @app.on_event("startup")
 def startup():

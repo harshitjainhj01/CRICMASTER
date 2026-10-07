@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Players - CRICMASTER</title>
+
+    <link
+        rel="stylesheet"
+        href="/css/reset.css"
+    >
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #f4f6f8;
+            color: #17202a;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .topbar {
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .topbar-inner {
+            max-width: 1100px;
+            margin: auto;
+            padding: 15px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            font-size: 23px;
+            font-weight: 800;
+        }
+
+        .page {
+            max-width: 1100px;
+            margin: auto;
+            padding: 25px 18px 45px;
+        }
+
+        .heading h1 {
+            margin: 0;
+            font-size: 30px;
+            font-weight: 800;
+        }
+
+        .heading p {
+            margin: 7px 0 20px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .search-box {
+            background: #ffffff;
+            border: 1px solid #e3e7eb;
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 18px;
+        }
+
+        .search-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        #playerSearch {
+            flex: 1;
+            padding: 12px 14px;
+            border: 1px solid #d8dde2;
+            border-radius: 9px;
+            font-size: 15px;
+        }
+
+        #searchBtn {
+            border: 0;
+            border-radius: 9px;
+            padding: 12px 20px;
+            background: #17202a;
+            color: #ffffff;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        #searchBtn:hover {
+            opacity: 0.9;
+        }
+
+        #status {
+            margin-bottom: 14px;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .player-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .player-card {
+            background: #ffffff;
+            border: 1px solid #e3e7eb;
+            border-radius: 13px;
+            padding: 17px;
+            cursor: pointer;
+            transition: transform .15s ease,
+                        box-shadow .15s ease;
+        }
+
+        .player-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 18px rgba(0,0,0,.06);
+        }
+
+        .player-name {
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        .player-subtitle {
+            margin-top: 5px;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .empty {
+            background: #ffffff;
+            border: 1px solid #e3e7eb;
+            border-radius: 14px;
+            padding: 45px 20px;
+            text-align: center;
+            color: #6b7280;
+        }
+
+        .empty-icon {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .nav {
+            max-width: 1100px;
+            margin: auto;
+            padding: 18px;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: center;
+            gap: 22px;
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #3f4750;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        @media (max-width: 600px) {
+
+            .search-row {
+                flex-direction: column;
+            }
+
+            #searchBtn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+<header class="topbar">
+
+    <div class="topbar-inner">
+
+        <div class="brand">
+            🏏 CRICMASTER
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="page">
+
+    <section class="heading">
+
+        <h1>
+            Players
+        </h1>
+
+        <p>
+            Search IPL players and explore
+            their career statistics.
+        </p>
+
+    </section>
+
+
+    <section class="search-box">
+
+        <div class="search-row">
+
+            <input
+                id="playerSearch"
+                type="search"
+                placeholder="Search player e.g. Kohli"
+                autocomplete="off"
+            >
+
+            <button
+                id="searchBtn"
+                type="button"
+            >
+                Search
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <div id="status">
+        Search for a player.
+    </div>
+
+
+    <section
+        id="playerList"
+        class="player-list"
+    ></section>
+
+</main>
+
+
+<nav class="nav">
+
+    <a href="/pages/home.html">
+        Home
+    </a>
+
+    <a href="/pages/live.html">
+        Live
+    </a>
+
+    <a href="/pages/matches.html">
+        Matches
+    </a>
+
+    <a href="/pages/players.html">
+        Players
+    </a>
+
+    <a href="/pages/stats.html">
+        Stats
+    </a>
+
+    <a href="/pages/news.html">
+        News
+    </a>
+
+</nav>
+
+
+<script
+    type="module"
+    src="/js/players.js"
+></script>
+
+</body>
+
+</html>

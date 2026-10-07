@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Settings - CRICMASTER</title>
+
+<link rel="stylesheet" href="/css/reset.css">
+<link rel="stylesheet" href="/css/variables.css">
+<link rel="stylesheet" href="/css/theme.css">
+<link rel="stylesheet" href="/css/light.css">
+<link rel="stylesheet" href="/css/layout.css">
+<link rel="stylesheet" href="/css/cards.css">
+<link rel="stylesheet" href="/css/dark.css">
+
+    <style>
+        .settings-container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .settings-title {
+            margin-bottom: 25px;
+        }
+
+        .settings-card {
+            background: var(--surface, #ffffff);
+            color: var(--text, #111111);
+            border: 1px solid var(--border, #dddddd);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .settings-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border, #dddddd);
+        }
+
+        .settings-row:last-child {
+            border-bottom: none;
+        }
+
+        .settings-info h3 {
+            margin: 0 0 6px;
+        }
+
+        .settings-info p {
+            margin: 0;
+            color: var(--text-secondary, #666666);
+        }
+
+        .theme-button {
+            border: none;
+            border-radius: 10px;
+            padding: 10px 18px;
+            cursor: pointer;
+            font-size: 15px;
+            background: #2563eb;
+            color: #ffffff;
+        }
+
+        .theme-button:hover {
+            opacity: 0.9;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="/" class="logo">CRICMASTER</a>
+
+            <nav class="main-nav">
+                <a href="/pages/home.html">Home</a>
+                <a href="/pages/matches.html">Matches</a>
+                <a href="/pages/stats.html">Stats</a>
+                <a href="/pages/teams.html">Teams</a>
+                <a href="/pages/players.html">Players</a>
+                <a href="/pages/news.html">News</a>
+                <a href="/pages/profile.html">Profile</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="settings-container">
+
+        <a class="back-link" href="/pages/home.html">
+            ← Back to Home
+        </a>
+
+        <div class="settings-title">
+            <h1>Settings</h1>
+            <p>Customize your CRICMASTER experience.</p>
+        </div>
+
+        <!-- Theme -->
+        <div class="settings-card">
+
+            <div class="settings-row">
+
+                <div class="settings-info">
+                    <h3>Theme</h3>
+                    <p>
+                        Switch between light and dark mode.
+                    </p>
+                </div>
+
+                <button
+                    id="theme-toggle"
+                    class="theme-button"
+                    type="button">
+                    🌙 Dark Mode
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- Live Data -->
+        <div class="settings-card">
+
+            <div class="settings-row">
+
+                <div class="settings-info">
+                    <h3>Live Data Cache</h3>
+                    <p>
+                        Backend caching helps reduce free API usage.
+                    </p>
+                </div>
+
+                <strong>60 sec</strong>
+
+            </div>
+
+        </div>
+
+        <!-- Historical Data -->
+        <div class="settings-card">
+
+            <div class="settings-row">
+
+                <div class="settings-info">
+                    <h3>Historical Data</h3>
+                    <p>
+                        IPL historical archive is stored locally.
+                    </p>
+                </div>
+
+                <strong>SQLite</strong>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <script>
+(function () {
+    const button = document.getElementById("theme-toggle");
+
+    function applyTheme(isDark) {
+        document.documentElement.setAttribute(
+            "data-theme",
+            isDark ? "dark" : "light"
+        );
+
+        if (isDark) {
+            document.body.style.backgroundColor = "#0b0f14";
+            document.body.style.color = "#ffffff";
+
+            button.textContent = "☀️ Light Mode";
+
+            localStorage.setItem("cricmaster_theme", "dark");
+        } else {
+            document.documentElement.setAttribute(
+                "data-theme",
+                "light"
+            );
+
+            document.body.style.backgroundColor = "#ffffff";
+            document.body.style.color = "#111111";
+
+            button.textContent = "🌙 Dark Mode";
+
+            localStorage.setItem("cricmaster_theme", "light");
+        }
+    }
+
+    const savedTheme =
+        localStorage.getItem("cricmaster_theme") || "light";
+
+    applyTheme(savedTheme === "dark");
+
+    button.addEventListener("click", function () {
+        const current =
+            document.documentElement.getAttribute("data-theme");
+
+        applyTheme(current !== "dark");
+    });
+})();
+</script>
+
+</body>
+</html>

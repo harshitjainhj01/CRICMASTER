@@ -10,12 +10,10 @@ from app.database.models_base import Base
 class Settings(BaseSettings):
     app_name: str = "CRICMASTER"
     app_env: str = "development"
-
     database_url: str = "sqlite:///./cricmaster.db"
-
-    sportmonks_api_token: str = ""
-
+    cricketdata_api_key: str = ""
     frontend_url: str = "http://127.0.0.1:8000"
+    firebase_credentials_path: str = "secrets/firebase-service-account.json"
 
     model_config = SettingsConfigDict(
         env_file=Path(__file__).resolve().parents[2] / ".env",

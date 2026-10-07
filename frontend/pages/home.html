@@ -1,420 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>CRICMASTER</title>
 
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/variables.css">
+    <link rel="stylesheet" href="/css/theme.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/cards.css">
+
     <style>
-
-        * {
-            box-sizing: border-box;
-        }
-
         body {
             margin: 0;
-            background: #07110d;
-            color: #ffffff;
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+            color: #17202a;
         }
 
         .topbar {
-            height: 70px;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 15px 20px;
+        }
 
+        .topbar-inner {
+            max-width: 1200px;
+            margin: auto;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-
-            padding: 0 24px;
-
-            background: #0e1c16;
-
-            border-bottom: 1px solid #20372b;
-
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            align-items: center;
+            gap: 20px;
         }
 
         .logo {
-            color: #35d16f;
             font-size: 24px;
-            font-weight: 900;
+            font-weight: 800;
+            text-decoration: none;
+            color: #111827;
         }
 
         .nav {
             display: flex;
-            gap: 24px;
+            gap: 14px;
+            flex-wrap: wrap;
         }
 
         .nav a {
-            color: #c5cec8;
             text-decoration: none;
-            font-size: 14px;
+            color: #374151;
             font-weight: 700;
+            font-size: 14px;
         }
 
         .nav a:hover {
-            color: #35d16f;
-        }
-
-        .profile {
-            width: 40px;
-            height: 40px;
-
-            display: grid;
-            place-items: center;
-
-            border-radius: 50%;
-
-            background: #13251c;
-
-            border: 1px solid #30483a;
-
-            cursor: pointer;
+            color: #2563eb;
         }
 
         .container {
-            width: min(1200px, 92%);
-
-            margin: 0 auto;
+            max-width: 1200px;
+            margin: auto;
+            padding: 25px 18px;
         }
 
         .hero {
-            margin-top: 30px;
-
-            padding: 40px;
-
-            border-radius: 18px;
-
-            background:
-                radial-gradient(
-                    circle at top right,
-                    rgba(53, 209, 111, 0.15),
-                    transparent 40%
-                ),
-                #0e1c16;
-
-            border: 1px solid #20372b;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 22px;
         }
 
         .hero h1 {
-            margin: 0;
-
-            font-size: 42px;
+            margin: 0 0 8px;
         }
 
         .hero p {
-            color: #9ca9a2;
-
-            margin-top: 12px;
-
-            line-height: 1.6;
-        }
-
-        .section {
-            margin-top: 35px;
-        }
-
-        .section-title {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            margin-bottom: 15px;
-        }
-
-        .section-title h2 {
             margin: 0;
-
-            font-size: 22px;
-        }
-
-        .section-title a {
-            color: #35d16f;
-
-            text-decoration: none;
-
-            font-size: 14px;
-        }
-
-        .cards {
-            display: grid;
-
-            grid-template-columns:
-                repeat(
-                    auto-fit,
-                    minmax(280px, 1fr)
-                );
-
-            gap: 16px;
-        }
-
-        .card {
-            padding: 20px;
-
-            background: #0e1c16;
-
-            border: 1px solid #20372b;
-
-            border-radius: 14px;
-        }
-
-        .live {
-            color: #35d16f;
-
-            font-size: 12px;
-
-            font-weight: 800;
-
-            text-transform: uppercase;
-        }
-
-        .teams {
-            margin-top: 16px;
-        }
-
-        .team {
-            display: flex;
-
-            justify-content: space-between;
-
-            padding: 10px 0;
-
-            border-bottom: 1px solid #1d3026;
-        }
-
-        .team:last-child {
-            border-bottom: none;
-        }
-
-        .score {
-            font-weight: 900;
-        }
-
-        .empty {
-            padding: 30px;
-
-            background: #0e1c16;
-
-            border: 1px solid #20372b;
-
-            border-radius: 14px;
-
-            color: #9ca9a2;
-
-            text-align: center;
+            color: #6b7280;
         }
 
         .quick-links {
             display: grid;
-
-            grid-template-columns:
-                repeat(
-                    auto-fit,
-                    minmax(180px, 1fr)
-                );
-
+            grid-template-columns: repeat(4, 1fr);
             gap: 15px;
+            margin-bottom: 25px;
         }
 
-        .quick-link {
-            padding: 20px;
-
-            background: #0e1c16;
-
-            border: 1px solid #20372b;
-
+        .quick-card {
+            display: block;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
             border-radius: 14px;
-
+            padding: 18px;
             text-decoration: none;
-
-            color: #ffffff;
-
-            font-weight: 800;
+            color: inherit;
         }
 
-        .quick-link:hover {
-            border-color: #35d16f;
+        .quick-card h3 {
+            margin: 0 0 7px;
         }
 
-        @media (max-width: 800px) {
+        .quick-card p {
+            margin: 0;
+            color: #6b7280;
+            font-size: 13px;
+        }
 
-            .nav {
-                display: none;
+        .section {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .section h2 {
+            margin-top: 0;
+        }
+
+        .dashboard-message {
+            color: #6b7280;
+        }
+
+        @media (max-width: 850px) {
+            .quick-links {
+                grid-template-columns: repeat(2, 1fr);
             }
 
-            .topbar {
-                padding: 0 15px;
-            }
-
-            .hero {
-                padding: 25px;
-            }
-
-            .hero h1 {
-                font-size: 32px;
+            .topbar-inner {
+                flex-direction: column;
+                align-items: flex-start;
             }
         }
 
+        @media (max-width: 500px) {
+            .quick-links {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
-
 </head>
-
 
 <body>
 
-
 <header class="topbar">
+    <div class="topbar-inner">
 
-    <div class="logo">
-        CRICMASTER
+        <a href="/" class="logo">
+            🏏 CRICMASTER
+        </a>
+
+        <nav class="nav">
+            <a href="/pages/home.html">Home</a>
+            <a href="/pages/live.html">Live</a>
+            <a href="/pages/matches.html">Matches</a>
+            <a href="/pages/players.html">Players</a>
+            <a href="/pages/teams.html">Teams</a>
+            <a href="/pages/stats.html">Stats</a>
+            <a href="/pages/standings.html">Standings</a>
+            <a href="/pages/series.html">Series</a>
+            <a href="/pages/news.html">News</a>
+            <a href="/pages/search.html">Search</a>
+            <a href="/pages/profile.html">Profile</a>
+            <a href="/pages/settings.html">Settings</a>
+        </nav>
+
     </div>
-
-
-    <nav class="nav">
-
-        <a href="/pages/home.html">
-            Home
-        </a>
-
-        <a href="/pages/live.html">
-            Live
-        </a>
-
-        <a href="/pages/matches.html">
-            Matches
-        </a>
-
-        <a href="/pages/teams.html">
-            Teams
-        </a>
-
-        <a href="/pages/stats.html">
-            Stats
-        </a>
-
-        <a href="/pages/news.html">
-            News
-        </a>
-
-    </nav>
-
-
-    <div
-        class="profile"
-        title="Profile"
-    >
-        👤
-    </div>
-
 </header>
-
 
 <main class="container">
 
-
     <section class="hero">
-
-        <h1>
-            Welcome to CRICMASTER 🏏
-        </h1>
-
+        <h1>Welcome to CRICMASTER</h1>
         <p>
-            Your home for live cricket, matches,
-            teams, players, statistics and cricket news.
+            Cricket scores, IPL history, player statistics, teams,
+            standings and live cricket data.
         </p>
-
     </section>
 
+    <section class="quick-links">
+
+        <a class="quick-card" href="/pages/live.html">
+            <h3>🔴 Live</h3>
+            <p>Current live cricket matches.</p>
+        </a>
+
+        <a class="quick-card" href="/pages/stats.html">
+            <h3>📊 Stats</h3>
+            <p>IPL batting and bowling statistics.</p>
+        </a>
+
+        <a class="quick-card" href="/pages/profile.html">
+            <h3>👤 Profile</h3>
+            <p>View your account and CricPoints.</p>
+        </a>
+
+        <a class="quick-card" href="/pages/settings.html">
+            <h3>⚙️ Settings</h3>
+            <p>Theme and app preferences.</p>
+        </a>
+
+    </section>
 
     <section class="section">
+        <h2>Matches</h2>
 
-        <div class="section-title">
-
-            <h2>
-                Live Matches
-            </h2>
-
-            <a href="/pages/live.html">
-                View all
-            </a>
-
+        <div id="home-matches">
+            <p class="dashboard-message">
+                Loading cricket matches...
+            </p>
         </div>
-
-
-        <div class="cards">
-
-            <div class="empty">
-
-                Live cricket data will appear here
-                when the Sportmonks API is connected.
-
-            </div>
-
-        </div>
-
     </section>
-
 
     <section class="section">
+        <h2>Cricket News</h2>
 
-        <div class="section-title">
-
-            <h2>
-                Explore CRICMASTER
-            </h2>
-
+        <div id="home-news">
+            <p class="dashboard-message">
+                Loading latest cricket news...
+            </p>
         </div>
-
-
-        <div class="quick-links">
-
-            <a
-                class="quick-link"
-                href="/pages/matches.html"
-            >
-                🏏 Matches
-            </a>
-
-
-            <a
-                class="quick-link"
-                href="/pages/teams.html"
-            >
-                🏆 Teams
-            </a>
-
-
-            <a
-                class="quick-link"
-                href="/pages/stats.html"
-            >
-                📊 Player Stats
-            </a>
-
-
-            <a
-                class="quick-link"
-                href="/pages/news.html"
-            >
-                📰 Cricket News
-            </a>
-
-        </div>
-
     </section>
-
 
 </main>
 
+<script src="/js/home.js"></script>
 
 </body>
-
 </html>

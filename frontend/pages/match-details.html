@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Match Details - CRICMASTER</title>
+
+    <link rel="stylesheet" href="/css/reset.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #f4f6f8;
+            color: #17202a;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .topbar {
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .topbar-inner {
+            max-width: 1100px;
+            margin: auto;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .back-btn {
+            border: 1px solid #dfe3e8;
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 9px 12px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .brand {
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .page {
+            max-width: 1100px;
+            margin: auto;
+            padding: 22px 18px 45px;
+        }
+
+        .status {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .hero-card {
+            background: #ffffff;
+            border: 1px solid #e4e8ec;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .hero-top {
+            padding: 18px;
+            border-bottom: 1px solid #edf0f2;
+        }
+
+        .competition {
+            color: #7a838d;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .4px;
+        }
+
+        .match-title {
+            margin-top: 6px;
+            font-size: 22px;
+            font-weight: 800;
+            line-height: 1.35;
+        }
+
+        .match-meta {
+            margin-top: 8px;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .teams {
+            padding: 24px 18px;
+            display: grid;
+            grid-template-columns: 1fr 60px 1fr;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .team-box {
+            background: #f7f8fa;
+            border-radius: 12px;
+            padding: 18px;
+        }
+
+        .team-box:last-child {
+            text-align: right;
+        }
+
+        .team-name {
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .vs {
+            text-align: center;
+            color: #8a929b;
+            font-weight: 800;
+            font-size: 13px;
+        }
+
+        .winner {
+            padding: 0 18px 20px;
+            font-size: 14px;
+        }
+
+        .winner strong {
+            font-weight: 800;
+        }
+
+        .info-grid {
+            padding: 0 18px 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .info-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 13px;
+        }
+
+        .info-label {
+            font-size: 11px;
+            color: #7b838d;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .info-value {
+            margin-top: 5px;
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 1.35;
+        }
+
+        .section {
+            margin-top: 18px;
+            background: #ffffff;
+            border: 1px solid #e4e8ec;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .section-title {
+            padding: 15px 18px;
+            border-bottom: 1px solid #edf0f2;
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        .innings {
+            padding: 15px 18px;
+            display: grid;
+            gap: 10px;
+        }
+
+        .innings-card {
+            border: 1px solid #e4e8ec;
+            border-radius: 12px;
+            padding: 15px;
+        }
+
+        .innings-team {
+            font-weight: 800;
+            font-size: 15px;
+        }
+
+        .innings-score {
+            margin-top: 7px;
+            font-size: 23px;
+            font-weight: 800;
+        }
+
+        .innings-meta {
+            margin-top: 5px;
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .detail-item {
+            padding: 13px 18px;
+            border-top: 1px solid #edf0f2;
+        }
+
+        .detail-label {
+            color: #7b838d;
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .detail-value {
+            margin-top: 5px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .empty {
+            padding: 40px 18px;
+            text-align: center;
+            color: #6b7280;
+        }
+
+        .bottom-nav {
+            max-width: 1100px;
+            margin: 25px auto 0;
+            padding: 18px;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: center;
+            gap: 22px;
+            flex-wrap: wrap;
+        }
+
+        .bottom-nav a {
+            text-decoration: none;
+            color: #404852;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        @media (max-width: 700px) {
+            .teams {
+                grid-template-columns: 1fr;
+            }
+
+            .team-box:last-child {
+                text-align: left;
+            }
+
+            .vs {
+                display: none;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* =========================
+   SCORECARD TABLES
+========================= */
+
+.scorecard-table-wrapper {
+    overflow-x: auto;
+}
+
+.scorecard-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 650px;
+}
+
+.scorecard-table th {
+    background: #f7f8fa;
+    color: #6b7280;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .3px;
+    text-align: right;
+    padding: 11px 12px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.scorecard-table th:first-child {
+    text-align: left;
+}
+
+.scorecard-table td {
+    padding: 12px;
+    border-bottom: 1px solid #edf0f2;
+    font-size: 13px;
+    text-align: right;
+}
+
+.scorecard-table td:first-child {
+    text-align: left;
+    font-weight: 700;
+}
+
+.scorecard-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.innings-heading {
+    margin-bottom: 12px;
+}
+
+.innings-heading-title {
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.innings-heading-score {
+    margin-top: 5px;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.table-section-title {
+    margin: 18px 0 8px;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.empty-table {
+    padding: 15px;
+    color: #6b7280;
+    font-size: 13px;
+    background: #f8f9fa;
+    border-radius: 9px;
+}
+/* =========================
+   BALL-BY-BALL
+========================= */
+
+.commentary-list {
+    display: grid;
+    gap: 8px;
+}
+
+.over-block {
+    border-top: 1px solid #edf0f2;
+}
+
+.over-title {
+    padding: 12px 18px 7px;
+    font-size: 13px;
+    font-weight: 800;
+    background: #fafbfc;
+}
+
+.ball-row {
+    display: grid;
+    grid-template-columns: 55px 1fr 70px;
+    gap: 10px;
+    align-items: center;
+    padding: 11px 18px;
+    border-top: 1px solid #f0f2f4;
+}
+
+.ball-number {
+    color: #7b838d;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.ball-text {
+    font-size: 13px;
+    line-height: 1.45;
+}
+
+.ball-result {
+    text-align: right;
+    font-weight: 800;
+    font-size: 13px;
+}
+
+.run-0 {
+    color: #6b7280;
+}
+
+.run-4 {
+    color: #1b5e20;
+}
+
+.run-6 {
+    color: #1565c0;
+}
+
+.wicket {
+    color: #b71c1c;
+}
+
+.extra {
+    color: #8a4b00;
+}
+
+@media (max-width: 650px) {
+    .ball-row {
+        grid-template-columns: 48px 1fr 55px;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+}
+    </style>
+</head>
+
+<body>
+
+<header class="topbar">
+    <div class="topbar-inner">
+
+        <button
+            id="backBtn"
+            class="back-btn"
+            type="button"
+        >
+            ← Back
+        </button>
+
+        <div class="brand">
+            🏏 CRICMASTER
+        </div>
+
+    </div>
+</header>
+
+
+<main class="page">
+
+    <div id="status" class="status">
+        Loading match...
+    </div>
+
+    <section id="matchContainer"></section>
+
+</main>
+
+
+<nav class="bottom-nav">
+    <a href="/pages/home.html">Home</a>
+    <a href="/pages/live.html">Live</a>
+    <a href="/pages/matches.html">Matches</a>
+    <a href="/pages/teams.html">Teams</a>
+    <a href="/pages/stats.html">Stats</a>
+    <a href="/pages/news.html">News</a>
+</nav>
+
+
+<script type="module" src="/js/match-details.js"></script>
+
+</body>
+</html>

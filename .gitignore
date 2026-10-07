@@ -2,3 +2,15 @@
 # Backup archives
 *.zip
 backend/.env
+# Python cache
+__pycache__/
+*.pyc
+
+# Local databases
+*.db
+
+# Local datasets
+data/
+
+# VS Code local settings
+.vscode/

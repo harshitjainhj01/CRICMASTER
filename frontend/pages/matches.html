@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Matches - CRICMASTER</title>
+
+    <link rel="stylesheet" href="/css/reset.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f8;
+            color: #17202a;
+        }
+
+        /* =========================
+           TOP BAR
+        ========================= */
+
+        .topbar {
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .topbar-inner {
+            max-width: 1150px;
+            margin: auto;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .brand-subtitle {
+            display: block;
+            margin-top: 3px;
+            font-size: 12px;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .header-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 1px solid #e5e7eb;
+            background: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 19px;
+        }
+
+        /* =========================
+           PAGE
+        ========================= */
+
+        .page {
+            max-width: 1150px;
+            margin: auto;
+            padding: 24px 20px 40px;
+        }
+
+        .page-heading {
+            margin-bottom: 20px;
+        }
+
+        .page-heading h1 {
+            margin: 0;
+            font-size: 30px;
+            font-weight: 800;
+        }
+
+        .page-heading p {
+            margin: 7px 0 0;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* =========================
+           SEASON SELECTOR
+        ========================= */
+
+        .filter-box {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 17px;
+            margin-bottom: 18px;
+        }
+
+        .filter-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #5f6872;
+        }
+
+        #seasonSelect {
+            width: 100%;
+            max-width: 280px;
+            padding: 11px 13px;
+            border: 1px solid #d7dce1;
+            border-radius: 9px;
+            background: #ffffff;
+            color: #17202a;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        #seasonSelect:focus {
+            outline: none;
+            border-color: #7b8794;
+        }
+
+        /* =========================
+           TABS
+        ========================= */
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+
+        .tab-btn {
+            border: 1px solid #dfe3e8;
+            background: #ffffff;
+            color: #343a40;
+            border-radius: 9px;
+            padding: 11px 20px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .tab-btn.active {
+            background: #17202a;
+            color: #ffffff;
+            border-color: #17202a;
+        }
+
+        .tab-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* =========================
+           STATUS
+        ========================= */
+
+        #status {
+            margin-bottom: 15px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* =========================
+           MATCH LIST
+        ========================= */
+
+        .match-list {
+            display: grid;
+            gap: 16px;
+        }
+
+        .match-card {
+            background: #ffffff;
+            border: 1px solid #e3e7eb;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.15s ease,
+                        box-shadow 0.15s ease;
+        }
+
+        .match-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.07);
+        }
+
+        .match-top {
+            padding: 14px 17px;
+            border-bottom: 1px solid #edf0f2;
+        }
+
+        .competition {
+            font-size: 12px;
+            font-weight: 700;
+            color: #7a838d;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        .match-number {
+            margin-top: 4px;
+            font-size: 15px;
+            font-weight: 800;
+        }
+
+        .match-body {
+            padding: 17px;
+        }
+
+        .teams {
+            display: grid;
+            grid-template-columns: 1fr 45px 1fr;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .team {
+            min-height: 72px;
+            padding: 13px;
+            border-radius: 11px;
+            background: #f7f8fa;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .team:last-child {
+            text-align: right;
+        }
+
+        .team-name {
+            font-size: 16px;
+            line-height: 1.35;
+            font-weight: 800;
+        }
+
+        .vs {
+            text-align: center;
+            color: #8b949e;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .match-info {
+            margin-top: 14px;
+            padding-top: 13px;
+            border-top: 1px solid #edf0f2;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            color: #717983;
+            font-size: 12px;
+        }
+
+        .winner {
+            margin-top: 12px;
+            font-size: 13px;
+            color: #3f4953;
+        }
+
+        .winner strong {
+            color: #17202a;
+        }
+
+        /* =========================
+           EMPTY / ERROR
+        ========================= */
+
+        .empty {
+            background: #ffffff;
+            border: 1px solid #e3e7eb;
+            border-radius: 15px;
+            padding: 45px 20px;
+            text-align: center;
+            color: #6b7280;
+        }
+
+        .empty-icon {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .empty-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: #343a40;
+        }
+
+        .empty-text {
+            margin-top: 7px;
+            font-size: 13px;
+        }
+
+        /* =========================
+           BOTTOM NAV
+        ========================= */
+
+        .bottom-nav {
+            max-width: 1150px;
+            margin: 25px auto 0;
+            padding: 18px 20px;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .bottom-nav a {
+            color: #414851;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .bottom-nav a:hover {
+            color: #111827;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 650px) {
+
+            .page {
+                padding: 18px 12px 30px;
+            }
+
+            .page-heading h1 {
+                font-size: 26px;
+            }
+
+            .teams {
+                grid-template-columns: 1fr;
+            }
+
+            .team:last-child {
+                text-align: left;
+            }
+
+            .vs {
+                display: none;
+            }
+
+            .bottom-nav {
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         HEADER
+    ========================= -->
+
+    <header class="topbar">
+
+        <div class="topbar-inner">
+
+            <div class="brand">
+                🏏 CRICMASTER
+
+                <span class="brand-subtitle">
+                    Cricket scores, matches & stats
+                </span>
+            </div>
+
+            <div class="header-icon">
+                🔍
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================= -->
+
+    <main class="page">
+
+        <section class="page-heading">
+
+            <h1>IPL Matches</h1>
+
+            <p>
+                Explore real IPL matches from the historical database.
+            </p>
+
+        </section>
+
+
+        <!-- Season -->
+
+        <section class="filter-box">
+
+            <label
+                class="filter-label"
+                for="seasonSelect"
+            >
+                SELECT IPL SEASON
+            </label>
+
+            <select id="seasonSelect">
+
+                <option value="">
+                    All Seasons
+                </option>
+
+            </select>
+
+        </section>
+
+
+        <!-- Tabs -->
+
+        <div class="tabs">
+
+            <button
+                id="upcomingBtn"
+                class="tab-btn"
+                type="button"
+            >
+                Upcoming
+            </button>
+
+            <button
+                id="resultsBtn"
+                class="tab-btn active"
+                type="button"
+            >
+                Results
+            </button>
+
+        </div>
+
+
+        <!-- Status -->
+
+        <div id="status">
+            Loading IPL matches...
+        </div>
+
+
+        <!-- Match Cards -->
+
+        <section
+            id="matchList"
+            class="match-list"
+        ></section>
+
+    </main>
+
+
+    <!-- =========================
+         NAVIGATION
+    ========================= -->
+
+    <nav class="bottom-nav">
+
+        <a href="/pages/home.html">
+            Home
+        </a>
+
+        <a href="/pages/live.html">
+            Live
+        </a>
+
+        <a href="/pages/matches.html">
+            Matches
+        </a>
+
+        <a href="/pages/teams.html">
+            Teams
+        </a>
+
+        <a href="/pages/stats.html">
+            Stats
+        </a>
+
+        <a href="/pages/news.html">
+            News
+        </a>
+
+    </nav>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script type="module" src="/js/matches.js"></script>
+
+</body>
+</html>
