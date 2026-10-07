@@ -14,3 +14,6 @@ data/
 
 # VS Code local settings
 .vscode/
+
+backend/secrets/
+backend/secrets/firebase-service-account.json
