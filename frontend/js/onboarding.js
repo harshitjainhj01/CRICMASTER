@@ -20,27 +20,76 @@ const auth =
 
 
 let currentUser = null;
+let initialAuthRouteChecked = false;
 
+function setOnboardingStatus(message) {
+    const element = document.getElementById("onboardingStatus");
+    if (element) element.textContent = message;
+}
 
-onAuthStateChanged(
-    auth,
-    (user) => {
+async function verifyOnboardingRoute(user) {
+    try {
+        const idToken = await user.getIdToken(true);
+        sessionStorage.setItem("cricmasterIdToken", idToken);
 
-        currentUser = user;
+        // Create/retrieve the backend user and use its authoritative flag.
+        const response = await fetch(
+            "http://127.0.0.1:8000/api/auth/session",
+            {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${idToken}`,
+                    "Accept": "application/json"
+                }
+            }
+        );
 
-        if (!user) {
-            console.warn(
-                "No Firebase user is currently signed in."
-            );
-        } else {
-            console.log(
-                "Firebase user:",
-                user.email || user.phoneNumber
-            );
+        const responseText = await response.text();
+        let data = {};
+        try {
+            data = responseText ? JSON.parse(responseText) : {};
+        } catch {
+            throw new Error(`Session endpoint returned non-JSON (HTTP ${response.status}).`);
         }
 
+        if (!response.ok || !data.success) {
+            throw new Error(data.detail || data.message || `Session check failed (HTTP ${response.status}).`);
+        }
+
+        localStorage.setItem("cricmasterUser", JSON.stringify(data));
+
+        // A returning user should never see onboarding again.
+        if (data.onboarding_completed) {
+            window.location.replace("/index.html");
+            return;
+        }
+
+        // New user: remain on the questions page.
+        console.log("CRICMASTER: onboarding required for new user.");
+    } catch (error) {
+        console.error("Onboarding route check failed:", error);
+        setOnboardingStatus(
+            "We could not verify your account. Please sign in again. " + error.message
+        );
     }
-);
+}
+
+onAuthStateChanged(auth, user => {
+    currentUser = user;
+
+    // Only run the routing check on the initial auth-state resolution.
+    if (initialAuthRouteChecked) return;
+    initialAuthRouteChecked = true;
+
+    if (!user) {
+        console.warn("No Firebase user is currently signed in. Returning to login.");
+        window.location.replace("/pages/login.html");
+        return;
+    }
+
+    console.log("Firebase user:", user.email || user.phoneNumber);
+    verifyOnboardingRoute(user);
+});
 
 
 document.addEventListener(
@@ -169,8 +218,9 @@ document.addEventListener(
 
                         setTimeout(
                             () => {
-                                window.location.href =
-                                    "/pages/login.html";
+                                window.location.replace(
+                                    "/pages/login.html"
+                                );
                             },
                             1500
                         );
@@ -201,7 +251,7 @@ document.addEventListener(
 
                     const response =
                         await fetch(
-                            "/api/onboarding",
+                            "http://127.0.0.1:8000/api/onboarding",
                             {
                                 method: "POST",
 
@@ -236,14 +286,15 @@ document.addEventListener(
                         );
 
 
-                    const data =
-                        await response.json();
+                    const responseText = await response.text();
+                    let data = {};
+                    try {
+                        data = responseText ? JSON.parse(responseText) : {};
+                    } catch {
+                        throw new Error(`Onboarding endpoint returned non-JSON (HTTP ${response.status}). Check FastAPI on port 8000.`);
+                    }
 
-
-                    console.log(
-                        "Onboarding response:",
-                        data
-                    );
+                    console.log("Onboarding response:", data);
 
 
                     if (!response.ok) {
@@ -293,8 +344,9 @@ document.addEventListener(
                     setTimeout(
                         () => {
 
-                            window.location.href =
-                                "/pages/home.html";
+                            window.location.replace(
+                                "/index.html"
+                            );
 
                         },
                         700

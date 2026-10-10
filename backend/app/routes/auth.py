@@ -184,6 +184,20 @@ async def create_session(
         )
 
 
+    # Repair partially-created accounts before recording the login event.
+    db.flush()
+    existing_profile = db.execute(
+        select(UserProfile).where(UserProfile.user_id == user.id)
+    ).scalar_one_or_none()
+    if existing_profile is None:
+        db.add(UserProfile(user_id=user.id))
+
+    existing_points = db.execute(
+        select(StakePoints).where(StakePoints.user_id == user.id)
+    ).scalar_one_or_none()
+    if existing_points is None:
+        db.add(StakePoints(user_id=user.id, points=1000))
+
     login_event = LoginEvent(
         user_id=user.id,
         provider=provider,
@@ -205,18 +219,20 @@ async def create_session(
 
 
     profile = db.execute(
-        select(UserProfile).where(
-            UserProfile.user_id == user.id
-        )
-    ).scalar_one()
-
+        select(UserProfile).where(UserProfile.user_id == user.id)
+    ).scalar_one_or_none()
+    if profile is None:
+        profile = UserProfile(user_id=user.id)
+        db.add(profile)
 
     points = db.execute(
-        select(StakePoints).where(
-            StakePoints.user_id == user.id
-        )
-    ).scalar_one()
+        select(StakePoints).where(StakePoints.user_id == user.id)
+    ).scalar_one_or_none()
+    if points is None:
+        points = StakePoints(user_id=user.id, points=1000)
+        db.add(points)
 
+    db.commit()
 
     return AuthSessionResponse(
         success=True,
@@ -241,18 +257,22 @@ async def get_me(
 ):
 
     profile = db.execute(
-        select(UserProfile).where(
-            UserProfile.user_id == user.id
-        )
-    ).scalar_one()
-
+        select(UserProfile).where(UserProfile.user_id == user.id)
+    ).scalar_one_or_none()
+    if profile is None:
+        profile = UserProfile(user_id=user.id)
+        db.add(profile)
 
     points = db.execute(
-        select(StakePoints).where(
-            StakePoints.user_id == user.id
-        )
-    ).scalar_one()
+        select(StakePoints).where(StakePoints.user_id == user.id)
+    ).scalar_one_or_none()
+    if points is None:
+        points = StakePoints(user_id=user.id, points=1000)
+        db.add(points)
 
+    db.commit()
+    db.refresh(profile)
+    db.refresh(points)
 
     return AuthSessionResponse(
         success=True,

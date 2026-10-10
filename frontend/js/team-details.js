@@ -509,14 +509,12 @@ async function loadTeam() {
             matchesResponse
         ] = await Promise.all([
 
-            fetch(
-                `/api/ipl/team-profile?team=${encodeURIComponent(
+            fetch(`http://127.0.0.1:8000/api/ipl/team-profile?team=${encodeURIComponent(
                     team
                 )}`
             ),
 
-            fetch(
-                `/api/ipl/team-matches?team=${encodeURIComponent(
+            fetch(`http://127.0.0.1:8000/api/ipl/team-matches?team=${encodeURIComponent(
                     team
                 )}&limit=50`
             )

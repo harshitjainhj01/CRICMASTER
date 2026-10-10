@@ -30,15 +30,16 @@ const googleProvider =
 document.addEventListener(
     "DOMContentLoaded",
     () => {
-
         setupSignup();
-
         setupLogin();
-
         setupGoogleLogin();
-
         setupLogout();
 
+        const pendingError = sessionStorage.getItem("cricmasterAuthError");
+        if (pendingError) {
+            sessionStorage.removeItem("cricmasterAuthError");
+            showStatus(pendingError);
+        }
     }
 );
 
@@ -299,31 +300,27 @@ async function connectToCRICMASTER(
     );
 
 
-    const response =
-        await fetch(
-            "/api/auth/session",
-            {
-                method: "POST",
-
-                headers: {
-                    "Authorization":
-                        `Bearer ${idToken}`
-                }
+    const response = await fetch(
+        "http://127.0.0.1:8000/api/auth/session",
+        {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${idToken}`,
+                "Accept": "application/json"
             }
-        );
+        }
+    );
 
-
-    const data =
-        await response.json();
-
+    const responseText = await response.text();
+    let data = {};
+    try {
+        data = responseText ? JSON.parse(responseText) : {};
+    } catch {
+        throw new Error(`Session endpoint returned non-JSON (HTTP ${response.status}). Check that FastAPI is running on port 8000.`);
+    }
 
     if (!response.ok || !data.success) {
-
-        throw new Error(
-            data.detail ||
-            "CRICMASTER account creation failed."
-        );
-
+        throw new Error(data.detail || data.message || `CRICMASTER account creation failed (HTTP ${response.status}).`);
     }
 
 
@@ -335,13 +332,15 @@ async function connectToCRICMASTER(
 
     if (data.onboarding_completed) {
 
-        window.location.href =
-            "/pages/home.html";
+        window.location.replace(
+            "/index.html"
+        );
 
     } else {
 
-        window.location.href =
-            "/pages/onboarding.html";
+        window.location.replace(
+            "/pages/onboarding.html"
+        );
 
     }
 
@@ -376,8 +375,9 @@ function setupLogout() {
                     "cricmasterUser"
                 );
 
-                window.location.href =
-                    "/pages/login.html";
+                window.location.replace(
+                    "/pages/login.html"
+                );
 
             } catch (error) {
 

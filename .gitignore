@@ -17,3 +17,10 @@ data/
 
 backend/secrets/
 backend/secrets/firebase-service-account.json
+.env
+.env.*
+!backend/.env.example
+*.sqlite
+*.sqlite3
+.venv/
+venv/

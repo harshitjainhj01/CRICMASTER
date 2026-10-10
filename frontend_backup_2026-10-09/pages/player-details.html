@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Player Profile - CRICMASTER</title>
+
+    <link
+        rel="stylesheet"
+        href="/css/reset.css"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #f4f6f8;
+            color: #17202a;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .topbar {
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .topbar-inner {
+            max-width: 1100px;
+            margin: auto;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .back-btn {
+            border: 1px solid #dfe3e8;
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 9px 12px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .brand {
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .page {
+            max-width: 1100px;
+            margin: auto;
+            padding: 24px 18px 45px;
+        }
+
+        .status {
+            color: #6b7280;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        .profile-card {
+            background: #ffffff;
+            border: 1px solid #e3e7eb;
+            border-radius: 16px;
+            padding: 22px;
+        }
+
+        .player-name {
+            margin: 0;
+            font-size: 30px;
+            font-weight: 800;
+        }
+
+        .player-teams {
+            margin-top: 8px;
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .stats-grid {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .stat-box {
+            background: #f7f8fa;
+            border-radius: 12px;
+            padding: 15px;
+        }
+
+        .stat-label {
+            color: #737b85;
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .stat-value {
+            margin-top: 6px;
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .section {
+            background: #ffffff;
+            border: 1px solid #e3e7eb;
+            border-radius: 16px;
+            margin-top: 18px;
+            overflow: hidden;
+        }
+
+        .section-title {
+            padding: 15px 18px;
+            border-bottom: 1px solid #edf0f2;
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            min-width: 600px;
+            border-collapse: collapse;
+        }
+
+        th {
+            padding: 12px 15px;
+            background: #f8f9fa;
+            color: #737b85;
+            font-size: 11px;
+            text-transform: uppercase;
+            text-align: right;
+        }
+
+        th:first-child {
+            text-align: left;
+        }
+
+        td {
+            padding: 13px 15px;
+            border-top: 1px solid #edf0f2;
+            text-align: right;
+            font-size: 13px;
+        }
+
+        td:first-child {
+            text-align: left;
+            font-weight: 700;
+        }
+
+        .empty {
+            padding: 40px 20px;
+            text-align: center;
+            color: #6b7280;
+            background: #ffffff;
+            border: 1px solid #e3e7eb;
+            border-radius: 16px;
+        }
+
+        .nav {
+            max-width: 1100px;
+            margin: auto;
+            padding: 18px;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: center;
+            gap: 22px;
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            color: #414850;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        @media (max-width: 800px) {
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 500px) {
+
+            .page {
+                padding: 18px 12px 35px;
+            }
+
+            .player-name {
+                font-size: 25px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<header class="topbar">
+
+    <div class="topbar-inner">
+
+        <button
+            id="backBtn"
+            class="back-btn"
+            type="button"
+        >
+            ← Back
+        </button>
+
+        <div class="brand">
+            🏏 CRICMASTER
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="page">
+
+    <div
+        id="status"
+        class="status"
+    >
+        Loading player...
+    </div>
+
+
+    <div id="playerContainer"></div>
+
+</main>
+
+
+<nav class="nav">
+
+    <a href="/pages/home.html">
+        Home
+    </a>
+
+    <a href="/pages/live.html">
+        Live
+    </a>
+
+    <a href="/pages/matches.html">
+        Matches
+    </a>
+
+    <a href="/pages/players.html">
+        Players
+    </a>
+
+    <a href="/pages/stats.html">
+        Stats
+    </a>
+
+    <a href="/pages/news.html">
+        News
+    </a>
+
+</nav>
+
+
+<script
+    type="module"
+    src="/js/player-details.js"
+></script>
+
+</body>
+
+</html>

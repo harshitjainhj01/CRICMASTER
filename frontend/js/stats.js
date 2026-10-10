@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const page = document.body;
 
     try {
-        const response = await fetch("/api/stats");
+        const response = await fetch("http://127.0.0.1:8000/api/stats");
 
         if (!response.ok) {
             throw new Error(`API error: ${response.status}`);

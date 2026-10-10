@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>CRICMASTER</title>
+
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/variables.css">
+    <link rel="stylesheet" href="/css/theme.css">
+    <link rel="stylesheet" href="/css/layout.css">
+</head>
+
+<body>
+
+    <header class="topbar">
+
+        <div class="brand">
+            <div class="brand-ball">🏏</div>
+            <span>CRICMASTER</span>
+        </div>
+
+        <nav class="topnav">
+            <a href="/">Home</a>
+            <a href="/pages/live.html">Live</a>
+            <a href="/pages/matches.html">Matches</a>
+            <a href="/pages/teams.html">Teams</a>
+            <a href="/pages/stats.html">Stats</a>
+            <a href="/pages/news.html">News</a>
+        </nav>
+
+        <div class="header-actions">
+            <button id="themeToggle" type="button">
+                🌙
+            </button>
+
+            <button id="profileButton" type="button">
+                👤
+            </button>
+        </div>
+
+    </header>
+
+
+    <main class="container">
+
+        <section class="hero">
+
+            <div>
+                <p class="eyebrow">WELCOME TO</p>
+
+                <h1>
+                    CRICMASTER
+                </h1>
+
+                <p class="hero-text">
+                    Live cricket scores, matches, players,
+                    teams, statistics and cricket news.
+                </p>
+            </div>
+
+        </section>
+
+
+        <section class="section">
+
+            <div class="section-header">
+                <h2>Live Matches</h2>
+
+                <a href="/pages/live.html">
+                    View all
+                </a>
+            </div>
+
+            <div id="liveMatches" class="match-grid">
+
+                <div class="loading-card">
+                    Loading live cricket...
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="section">
+
+            <div class="section-header">
+                <h2>CRICMASTER</h2>
+            </div>
+
+            <div class="info-card">
+
+                <h3>Your cricket hub</h3>
+
+                <p>
+                    We are building CRICMASTER with real cricket
+                    provider data instead of simulated scores.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="/js/api.js"></script>
+    <script src="/js/app.js"></script>
+
+</body>
+</html>

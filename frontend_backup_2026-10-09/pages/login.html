@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Login | CRICMASTER</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            background: #07110d;
+            color: #ffffff;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+        }
+
+        .card {
+            width: min(100%, 430px);
+
+            background: #0e1c16;
+
+            border: 1px solid #263b30;
+
+            border-radius: 18px;
+
+            padding: 35px;
+
+            box-shadow:
+                0 15px 50px rgba(0, 0, 0, 0.35);
+        }
+
+        .brand {
+            text-align: center;
+
+            margin-bottom: 30px;
+        }
+
+        .brand h1 {
+            margin: 0;
+
+            color: #35d16f;
+
+            font-size: 36px;
+
+            letter-spacing: 1px;
+        }
+
+        .brand p {
+            margin-top: 10px;
+
+            color: #9ca9a2;
+
+            line-height: 1.5;
+        }
+
+        .google-btn,
+        .login-btn {
+            width: 100%;
+
+            padding: 14px;
+
+            border-radius: 10px;
+
+            font-size: 15px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+        }
+
+        .google-btn {
+            border: 1px solid #dddddd;
+
+            background: #ffffff;
+
+            color: #222222;
+        }
+
+        .divider {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            margin: 24px 0;
+
+            color: #748079;
+
+            font-size: 13px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+
+            flex: 1;
+
+            height: 1px;
+
+            background: #263b30;
+        }
+
+        .field {
+            margin-bottom: 17px;
+        }
+
+        .field label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-size: 14px;
+
+            font-weight: 700;
+        }
+
+        .field input {
+            width: 100%;
+
+            padding: 13px;
+
+            border: 1px solid #30483a;
+
+            border-radius: 9px;
+
+            background: #13251c;
+
+            color: #ffffff;
+
+            outline: none;
+
+            font-size: 15px;
+        }
+
+        .field input:focus {
+            border-color: #35d16f;
+        }
+
+        .login-btn {
+            margin-top: 5px;
+
+            border: none;
+
+            background: #35d16f;
+
+            color: #061008;
+        }
+
+        .login-btn:hover {
+            background: #27bd60;
+        }
+
+        #authStatus {
+            min-height: 22px;
+
+            margin-top: 18px;
+
+            text-align: center;
+
+            color: #9ca9a2;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+        }
+
+        .signup {
+            margin-top: 24px;
+
+            text-align: center;
+
+            color: #9ca9a2;
+
+            font-size: 14px;
+        }
+
+        .signup a {
+            color: #35d16f;
+
+            text-decoration: none;
+
+            font-weight: 700;
+        }
+
+        .security-note {
+            margin-top: 20px;
+
+            color: #66736c;
+
+            text-align: center;
+
+            font-size: 11px;
+
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="card">
+
+        <div class="brand">
+
+            <h1>CRICMASTER 🏏</h1>
+
+            <p>
+                Login to your cricket world
+            </p>
+
+        </div>
+
+
+        <!-- Google Login -->
+
+        <button
+            type="button"
+            class="google-btn"
+            data-google-login
+        >
+            Continue with Google
+        </button>
+
+
+        <!-- Divider -->
+
+        <div class="divider">
+            OR
+        </div>
+
+
+        <!-- Email Login -->
+
+        <form id="emailLoginForm">
+
+            <div class="field">
+
+                <label for="email">
+                    Email address
+                </label>
+
+                <input
+                    id="email"
+                    type="email"
+                    placeholder="Enter your email"
+                    autocomplete="email"
+                    required
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    id="password"
+                    type="password"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="login-btn"
+            >
+                Login
+            </button>
+
+        </form>
+
+
+        <!-- Firebase / CRICMASTER status -->
+
+        <div id="authStatus"></div>
+
+
+        <!-- Create account -->
+
+        <div class="signup">
+
+            Don't have an account?
+
+            <a href="/pages/signup.html">
+                Create Account
+            </a>
+
+        </div>
+
+
+        <div class="security-note">
+
+            Your authentication is securely handled
+            through Firebase.
+
+        </div>
+
+    </main>
+
+
+    <!-- Connect login page to Firebase authentication -->
+
+    <script
+        type="module"
+        src="/js/auth.js"
+    ></script>
+
+</body>
+
+</html>

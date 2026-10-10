@@ -47,8 +47,7 @@ async function searchPlayers() {
     try {
 
         const response =
-            await fetch(
-                `/api/ipl/players?search=${encodeURIComponent(
+            await fetch(`http://127.0.0.1:8000/api/ipl/players?search=${encodeURIComponent(
                     query
                 )}&limit=50`
             );

@@ -1,117 +1,82 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>CRICMASTER</title>
-
-    <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/variables.css">
-    <link rel="stylesheet" href="/css/theme.css">
-    <link rel="stylesheet" href="/css/layout.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b1728" />
+  <title>CRICMASTER — Live Cricket</title>
+  <link rel="icon" href="/assets/cricmaster-logo.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
+<div class="app">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <button class="mobile-menu icon-btn" id="mobileMenu" aria-label="Menu">☰</button>
+      <button class="brand" data-route="home" aria-label="CRICMASTER Home">
+        <img src="assets/cricmaster-logo.png" alt="CRICMASTER logo">
+        <span><b>CRIC</b><em>MASTER</em></span>
+      </button>
+      <div class="desktop-tabs">
+        <button data-route="home" class="top-tab active">Home</button>
+        <button data-route="live" class="top-tab">Live</button>
+        <button data-route="matches" class="top-tab">Matches</button>
+        <button data-route="players" class="top-tab">Players</button>
+        <button data-route="teams" class="top-tab">Teams</button>
+        <button data-route="stats" class="top-tab">Stats</button>
+        <button data-route="standings" class="top-tab">Series</button>
+        <button data-route="news" class="top-tab">News</button>
+        <button data-route="admin" class="top-tab">Admin</button>
+      </div>
+      <div class="top-actions">
+        <label class="top-search"><span>⌕</span><input id="globalSearch" placeholder="Search player, team or match" /><kbd>Ctrl K</kbd></label>
+        <button class="icon-btn" id="themeToggle" title="Theme">☼</button>
+        <button class="icon-btn bell" title="Notifications">♢<i></i></button>
+        <button class="profile-mini" data-route="profile"><span class="avatar">HJ</span><strong>Harshit</strong><span>⌄</span></button>
+      </div>
+    </div>
+  </header>
 
-    <header class="topbar">
+  <div class="formatbar">
+    <div class="format-inner">
+      <button class="format-chip active">ALL</button>
+      <button class="format-chip">T20</button>
+      <button class="format-chip">ODI</button>
+      <button class="format-chip">TEST</button>
+      <button class="format-chip">IPL</button>
+      <button class="format-chip">INTERNATIONAL</button>
+      <button class="format-chip">WOMEN</button>
+    </div>
+  </div>
 
-        <div class="brand">
-            <div class="brand-ball">🏏</div>
-            <span>CRICMASTER</span>
-        </div>
+  <main id="app" class="content"></main>
 
-        <nav class="topnav">
-            <a href="/">Home</a>
-            <a href="/pages/live.html">Live</a>
-            <a href="/pages/matches.html">Matches</a>
-            <a href="/pages/teams.html">Teams</a>
-            <a href="/pages/stats.html">Stats</a>
-            <a href="/pages/news.html">News</a>
-        </nav>
+  <nav class="bottom-nav">
+    <button data-route="home" class="active"><span>⌂</span>Home</button>
+    <button data-route="live"><span>●</span>Live</button>
+    <button data-route="matches"><span>▤</span>Matches</button>
+    <button data-route="standings"><span>♜</span>Series</button>
+    <button data-route="news"><span>◫</span>News</button>
+  </nav>
 
-        <div class="header-actions">
-            <button id="themeToggle" type="button">
-                🌙
-            </button>
-
-            <button id="profileButton" type="button">
-                👤
-            </button>
-        </div>
-
-    </header>
-
-
-    <main class="container">
-
-        <section class="hero">
-
-            <div>
-                <p class="eyebrow">WELCOME TO</p>
-
-                <h1>
-                    CRICMASTER
-                </h1>
-
-                <p class="hero-text">
-                    Live cricket scores, matches, players,
-                    teams, statistics and cricket news.
-                </p>
-            </div>
-
-        </section>
-
-
-        <section class="section">
-
-            <div class="section-header">
-                <h2>Live Matches</h2>
-
-                <a href="/pages/live.html">
-                    View all
-                </a>
-            </div>
-
-            <div id="liveMatches" class="match-grid">
-
-                <div class="loading-card">
-                    Loading live cricket...
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <section class="section">
-
-            <div class="section-header">
-                <h2>CRICMASTER</h2>
-            </div>
-
-            <div class="info-card">
-
-                <h3>Your cricket hub</h3>
-
-                <p>
-                    We are building CRICMASTER with real cricket
-                    provider data instead of simulated scores.
-                </p>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <script src="/js/api.js"></script>
-    <script src="/js/app.js"></script>
-
+  <aside class="mobile-drawer" id="drawer">
+    <div class="drawer-head"><strong>CRICMASTER</strong><button id="closeDrawer">×</button></div>
+    <button data-route="home">⌂ <span>Home</span></button>
+    <button data-route="live">● <span>Live Matches</span><em>2</em></button>
+    <button data-route="matches">▤ <span>Matches</span></button>
+    <button data-route="players">♟ <span>Players</span></button>
+    <button data-route="teams">◈ <span>Teams</span></button>
+    <button data-route="stats">◫ <span>Stats & Analytics</span></button>
+    <button data-route="standings">♜ <span>Standings & Series</span></button>
+    <button data-route="news">▣ <span>News & Search</span></button>
+    <button data-route="profile">◎ <span>Profile & Settings</span></button>
+    <button data-route="admin">⚙ <span>Admin Dashboard</span></button>
+  </aside>
+</div>
+<div id="toast" class="toast"></div>
+<script src="app.js"></script>
 </body>
 </html>

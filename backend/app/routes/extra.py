@@ -8,7 +8,7 @@ import httpx
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy import text
 
-from app.database.connection import engine
+from app.database.connection import engine, settings
 from app.models.user import User
 from app.routes.auth import get_current_user
 
@@ -174,7 +174,7 @@ def get_series():
 
 
 @router.get("/standings")
-def get_standings(season: int = Query(..., ge=2008)):
+def get_standings(season: str = Query(..., min_length=4, max_length=9)):
     with engine.connect() as db:
         matches = rows(db.execute(text("""
             SELECT match_id, team1, team2, winner, outcome_json
@@ -234,7 +234,7 @@ def get_standings(season: int = Query(..., ge=2008)):
 
 @router.get("/news")
 async def get_news():
-    rss_url = os.getenv("CRICMASTER_NEWS_RSS_URL", "").strip()
+    rss_url = settings.cricmaster_news_rss_url.strip() or os.getenv("CRICMASTER_NEWS_RSS_URL", "").strip()
     if not rss_url:
         return {"success":True,"configured":False,"data":[{"title":"Open Official IPL News","source":"IPL","url":"https://www.iplt20.com/news"}]}
     try:

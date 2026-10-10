@@ -12,8 +12,9 @@ class Settings(BaseSettings):
     app_env: str = "development"
     database_url: str = "sqlite:///./cricmaster.db"
     cricketdata_api_key: str = ""
-    frontend_url: str = "http://127.0.0.1:8000"
+    frontend_url: str = "http://127.0.0.1:5500"
     firebase_credentials_path: str = "secrets/firebase-service-account.json"
+    cricmaster_news_rss_url: str = ""
 
     model_config = SettingsConfigDict(
         env_file=Path(__file__).resolve().parents[2] / ".env",

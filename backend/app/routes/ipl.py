@@ -2,7 +2,7 @@ from __future__ import annotations
 import json
 
 from fastapi import APIRouter, HTTPException, Query
-from sqlalchemy import text
+from sqlalchemy import bindparam, text
 
 from app.database.connection import engine
 
@@ -47,78 +47,84 @@ def get_seasons():
 
 @router.get("/matches")
 def get_matches(
-    season: int | None = Query(default=None),
+    season: str | None = Query(default=None),
     page: int = Query(default=1, ge=1),
     limit: int = Query(default=20, ge=1, le=100),
 ):
+    """Return paginated IPL matches with compact innings score summaries."""
     offset = (page - 1) * limit
 
     with engine.connect() as connection:
-
         if season is None:
-
             total = connection.execute(
-                text(
-                    """
-                    SELECT COUNT(*)
-                    FROM ipl_matches
-                    """
-                )
+                text("SELECT COUNT(*) FROM ipl_matches")
             ).scalar_one()
-
             rows = connection.execute(
-                text(
-                    """
+                text("""
                     SELECT *
                     FROM ipl_matches
                     ORDER BY match_date DESC, match_number DESC
                     LIMIT :limit OFFSET :offset
-                    """
-                ),
-                {
-                    "limit": limit,
-                    "offset": offset,
-                },
+                """),
+                {"limit": limit, "offset": offset},
             ).mappings().all()
-
         else:
-
             total = connection.execute(
-                text(
-                    """
-                    SELECT COUNT(*)
-                    FROM ipl_matches
-                    WHERE season = :season
-                    """
-                ),
+                text("SELECT COUNT(*) FROM ipl_matches WHERE season = :season"),
                 {"season": season},
             ).scalar_one()
-
             rows = connection.execute(
-                text(
-                    """
+                text("""
                     SELECT *
                     FROM ipl_matches
                     WHERE season = :season
                     ORDER BY match_number ASC, match_date ASC
                     LIMIT :limit OFFSET :offset
-                    """
-                ),
-                {
-                    "season": season,
-                    "limit": limit,
-                    "offset": offset,
-                },
+                """),
+                {"season": season, "limit": limit, "offset": offset},
             ).mappings().all()
 
+        items = [dict(row) for row in rows]
+        match_ids = [item["match_id"] for item in items if item.get("match_id")]
+        innings_by_match: dict[str, list[dict]] = {}
+
+        if match_ids:
+            innings_query = text("""
+                SELECT match_id, innings_number, batting_team,
+                       total_runs, wickets, overs
+                FROM ipl_innings
+                WHERE match_id IN :match_ids
+                ORDER BY match_id, innings_number
+            """).bindparams(bindparam("match_ids", expanding=True))
+            innings_rows = connection.execute(
+                innings_query, {"match_ids": match_ids}
+            ).mappings().all()
+            for row in innings_rows:
+                innings_by_match.setdefault(str(row["match_id"]), []).append(dict(row))
+
+        for item in items:
+            innings = innings_by_match.get(str(item.get("match_id", "")), [])
+            item["innings"] = innings
+            item["score"] = [
+                {
+                    "r": inning.get("total_runs", 0),
+                    "w": inning.get("wickets", 0),
+                    "o": inning.get("overs", 0),
+                    "inning": f"{inning.get('batting_team') or 'Unknown'} Inning {inning.get('innings_number')}",
+                }
+                for inning in innings
+            ]
+
+    total = int(total or 0)
+    pages = (total + limit - 1) // limit
     return {
         "success": True,
         "season": season,
         "page": page,
         "limit": limit,
         "total": total,
-        "pages": (total + limit - 1) // limit,
-        "data": [dict(row) for row in rows],
+        "pages": pages,
+        "data": items,
     }
 
 
@@ -323,51 +329,43 @@ def get_teams():
 # Players
 # ---------------------------------------------------------
 
-@router.get("/players")
+@router.get('/players')
 def get_players(
     search: str | None = Query(default=None),
+    page: int = Query(default=1, ge=1),
     limit: int = Query(default=50, ge=1, le=200),
 ):
+    """Return paginated IPL player names and an optional search filter."""
+    offset = (page - 1) * limit
+    pattern = f"%{search.strip()}%" if search and search.strip() else None
 
     with engine.connect() as connection:
-
-        if search:
-
+        if pattern:
+            total = connection.execute(
+                text('SELECT COUNT(*) FROM ipl_players WHERE player_name LIKE :search'),
+                {'search': pattern},
+            ).scalar_one()
             rows = connection.execute(
-                text(
-                    """
-                    SELECT player_name
-                    FROM ipl_players
-                    WHERE player_name LIKE :search
-                    ORDER BY player_name
-                    LIMIT :limit
-                    """
-                ),
-                {
-                    "search": f"%{search}%",
-                    "limit": limit,
-                },
+                text('''SELECT player_name FROM ipl_players WHERE player_name LIKE :search ORDER BY player_name LIMIT :limit OFFSET :offset'''),
+                {'search': pattern, 'limit': limit, 'offset': offset},
             ).mappings().all()
-
         else:
-
+            total = connection.execute(text('SELECT COUNT(*) FROM ipl_players')).scalar_one()
             rows = connection.execute(
-                text(
-                    """
-                    SELECT player_name
-                    FROM ipl_players
-                    ORDER BY player_name
-                    LIMIT :limit
-                    """
-                ),
-                {"limit": limit},
+                text('''SELECT player_name FROM ipl_players ORDER BY player_name LIMIT :limit OFFSET :offset'''),
+                {'limit': limit, 'offset': offset},
             ).mappings().all()
 
+    total = int(total)
     return {
-        "success": True,
-        "count": len(rows),
-        "search": search,
-        "data": [dict(row) for row in rows],
+        'success': True,
+        'count': len(rows),
+        'total': total,
+        'page': page,
+        'limit': limit,
+        'pages': (total + limit - 1) // limit,
+        'search': search,
+        'data': [dict(row) for row in rows],
     }
 
 

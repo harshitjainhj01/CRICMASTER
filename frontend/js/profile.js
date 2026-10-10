@@ -42,7 +42,7 @@ onAuthStateChanged(auth, async (firebaseUser) => {
 
         const token = await firebaseUser.getIdToken(true);
 
-        const response = await fetch("/api/auth/me", {
+        const response = await fetch("http://127.0.0.1:8000/api/auth/me", {
             headers: {
                 "Authorization": `Bearer ${token}`
             }

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CRICMASTER - Create Account</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #07110d;
+            color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .card {
+            width: min(90%, 430px);
+            padding: 35px;
+            background: #0e1c16;
+            border: 1px solid #20372b;
+            border-radius: 18px;
+        }
+
+        h1 {
+            margin: 0;
+            text-align: center;
+            color: #35d16f;
+            font-size: 34px;
+        }
+
+        .subtitle {
+            margin: 10px 0 25px;
+            text-align: center;
+            color: #9ca9a2;
+        }
+
+        label {
+            display: block;
+            margin: 15px 0 7px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #30483a;
+            border-radius: 9px;
+            background: #13251c;
+            color: white;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #35d16f;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 22px;
+            padding: 14px;
+            border: none;
+            border-radius: 9px;
+            background: #35d16f;
+            color: #061008;
+            font-size: 15px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #27bd60;
+        }
+
+        .login {
+            margin-top: 20px;
+            text-align: center;
+            color: #9ca9a2;
+            font-size: 14px;
+        }
+
+        .login a {
+            color: #35d16f;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+
+        <h1>CRICMASTER</h1>
+
+        <p class="subtitle">
+            Create your cricket account
+        </p>
+
+        <form id="signupForm">
+
+            <label for="name">Name</label>
+            <input
+                id="name"
+                type="text"
+                placeholder="Enter your name"
+                required
+            >
+
+            <label for="email">Email</label>
+            <input
+                id="email"
+                type="email"
+                placeholder="Enter your email"
+                required
+            >
+
+            <label for="password">Password</label>
+            <input
+                id="password"
+                type="password"
+                placeholder="Create a password"
+                minlength="6"
+                required
+            >
+
+            <label for="confirmPassword">Confirm Password</label>
+            <input
+                id="confirmPassword"
+                type="password"
+                placeholder="Confirm your password"
+                minlength="6"
+                required
+            >
+
+            <button type="submit">
+                Create Account
+            </button>
+
+        </form>
+
+        <div class="login">
+            Already have an account?
+            <a href="/pages/login.html">Login</a>
+        </div>
+
+    </div>
+    <script type="module" src="/js/auth.js"></script>
+</body>
+</html>

@@ -228,8 +228,7 @@ async function loadLiveMatches() {
 
     try {
 
-        const response = await fetch(
-            "/api/matches?view=live",
+        const response = await fetch("http://127.0.0.1:8000/api/matches?view=live",
             {
                 cache: "no-store"
             }

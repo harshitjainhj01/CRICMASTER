@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CRICMASTER Admin</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100%;
+        }
+
+        body {
+            display: block !important;
+            visibility: visible !important;
+            background: #f4f6f8 !important;
+            color: #111827 !important;
+            font-family: Arial, sans-serif;
+        }
+
+        .admin-container {
+            display: block !important;
+            visibility: visible !important;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .admin-header {
+            display: block !important;
+            margin-bottom: 25px;
+        }
+
+        .admin-header h1 {
+            display: block !important;
+            font-size: 32px;
+            margin: 0 0 8px;
+            color: #111827;
+        }
+
+        .admin-header p {
+            display: block !important;
+            color: #6b7280;
+            margin: 0;
+        }
+
+        .back-link {
+            display: inline-block !important;
+            margin-bottom: 25px;
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        #admin-content {
+            display: block !important;
+            visibility: visible !important;
+        }
+
+        .loading-card {
+            display: block !important;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 25px;
+        }
+
+        .admin-grid {
+            display: grid !important;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .card {
+            display: block !important;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 22px;
+        }
+
+        .card h3 {
+            margin: 0 0 12px;
+            color: #374151;
+        }
+
+        .card strong {
+            display: block;
+            font-size: 32px;
+            color: #111827;
+        }
+
+        @media (max-width: 800px) {
+            .admin-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .admin-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="admin-container">
+
+        <a class="back-link" href="/pages/home.html">
+            ← Back to Home
+        </a>
+
+        <div class="admin-header">
+            <h1>CRICMASTER Admin Dashboard</h1>
+            <p>Owner and platform overview</p>
+        </div>
+
+        <div id="admin-content">
+
+            <div class="loading-card">
+                <h2>Loading Admin Dashboard...</h2>
+                <p>Please wait.</p>
+            </div>
+
+        </div>
+
+    </main>
+
+    <script type="module" src="/js/admin.js"></script>
+
+</body>
+</html>

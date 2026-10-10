@@ -61,8 +61,7 @@ async function loadSeasons() {
 
     try {
 
-        const response = await fetch(
-            "/api/ipl/seasons"
+        const response = await fetch("http://127.0.0.1:8000/api/ipl/seasons"
         );
 
         const data = await response.json();

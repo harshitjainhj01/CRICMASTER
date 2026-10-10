@@ -1,0 +1,165 @@
+/* =========================================================
+   CRICMASTER GLOBAL DARK MODE
+   ========================================================= */
+
+html[data-theme="dark"] {
+    background-color: #0b0f14 !important;
+
+    --bg: #0b0f14;
+    --background: #0b0f14;
+    --surface: #151a21;
+    --surface-2: #1d2430;
+    --card: #151a21;
+
+    --text: #ffffff;
+    --text-primary: #ffffff;
+    --text-secondary: #d7dde7;
+    --muted: #aeb7c4;
+
+    --border: #343c48;
+    --input-bg: #1d2430;
+}
+
+/* Whole page */
+html[data-theme="dark"] body {
+    background-color: #0b0f14 !important;
+    color: #ffffff !important;
+}
+
+/* Main wrappers */
+html[data-theme="dark"] main,
+html[data-theme="dark"] section,
+html[data-theme="dark"] article,
+html[data-theme="dark"] .container,
+html[data-theme="dark"] .page-container,
+html[data-theme="dark"] .content,
+html[data-theme="dark"] .page,
+html[data-theme="dark"] .section {
+    background-color: transparent !important;
+    color: #ffffff !important;
+}
+
+/* Header */
+html[data-theme="dark"] header,
+html[data-theme="dark"] .site-header,
+html[data-theme="dark"] .header,
+html[data-theme="dark"] .top-header {
+    background-color: #11161d !important;
+    color: #ffffff !important;
+    border-color: #343c48 !important;
+}
+
+/* Navigation */
+html[data-theme="dark"] nav,
+html[data-theme="dark"] .main-nav {
+    background-color: #11161d !important;
+}
+
+html[data-theme="dark"] nav a,
+html[data-theme="dark"] .main-nav a {
+    color: #ffffff !important;
+}
+
+/* Cards */
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .panel,
+html[data-theme="dark"] .match-card,
+html[data-theme="dark"] .player-card,
+html[data-theme="dark"] .team-card,
+html[data-theme="dark"] .news-card,
+html[data-theme="dark"] .series-card,
+html[data-theme="dark"] .scorecard,
+html[data-theme="dark"] .profile-card,
+html[data-theme="dark"] .settings-card,
+html[data-theme="dark"] .stat-card,
+html[data-theme="dark"] .search-card {
+    background-color: #151a21 !important;
+    color: #ffffff !important;
+    border-color: #343c48 !important;
+}
+
+/* Headings and text */
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3,
+html[data-theme="dark"] h4,
+html[data-theme="dark"] h5,
+html[data-theme="dark"] h6,
+html[data-theme="dark"] p,
+html[data-theme="dark"] span,
+html[data-theme="dark"] label,
+html[data-theme="dark"] li,
+html[data-theme="dark"] strong,
+html[data-theme="dark"] td,
+html[data-theme="dark"] th {
+    color: #ffffff !important;
+}
+
+/* Secondary/muted text */
+html[data-theme="dark"] .muted,
+html[data-theme="dark"] .secondary,
+html[data-theme="dark"] .subtitle,
+html[data-theme="dark"] .description,
+html[data-theme="dark"] small {
+    color: #d7dde7 !important;
+}
+
+/* Links */
+html[data-theme="dark"] a {
+    color: #ffffff !important;
+}
+
+/* Inputs */
+html[data-theme="dark"] input,
+html[data-theme="dark"] textarea,
+html[data-theme="dark"] select {
+    background-color: #1d2430 !important;
+    color: #ffffff !important;
+    border-color: #48515f !important;
+}
+
+html[data-theme="dark"] input::placeholder,
+html[data-theme="dark"] textarea::placeholder {
+    color: #aeb7c4 !important;
+}
+
+/* Tables */
+html[data-theme="dark"] table {
+    background-color: #151a21 !important;
+    color: #ffffff !important;
+    border-color: #343c48 !important;
+}
+
+html[data-theme="dark"] thead,
+html[data-theme="dark"] th {
+    background-color: #1d2430 !important;
+    color: #ffffff !important;
+}
+
+html[data-theme="dark"] tr,
+html[data-theme="dark"] td,
+html[data-theme="dark"] th {
+    border-color: #343c48 !important;
+}
+
+/* Buttons */
+html[data-theme="dark"] button {
+    color: #ffffff !important;
+}
+
+/* Dividers */
+html[data-theme="dark"] hr {
+    border-color: #343c48 !important;
+}
+
+/* Common white-background elements */
+html[data-theme="dark"] .bg-white,
+html[data-theme="dark"] .white-bg,
+html[data-theme="dark"] .background-white {
+    background-color: #151a21 !important;
+}
+
+/* Logo */
+html[data-theme="dark"] .logo {
+    color: #ffffff !important;
+}

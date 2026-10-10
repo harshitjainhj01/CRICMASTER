@@ -365,8 +365,7 @@ async function loadPlayer() {
 
 
         const response =
-            await fetch(
-                `/api/ipl/player-profile?player=${encodeURIComponent(
+            await fetch(`http://127.0.0.1:8000/api/ipl/player-profile?player=${encodeURIComponent(
                     player
                 )}`
             );

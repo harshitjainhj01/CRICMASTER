@@ -4,3 +4,4 @@ httpx
 sqlalchemy
 pydantic-settings
 python-multipart
+firebase-admin>=6.0

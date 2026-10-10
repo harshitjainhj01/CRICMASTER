@@ -27,8 +27,7 @@ async function loadTeams() {
     try {
 
         const response =
-            await fetch(
-                "/api/ipl/teams"
+            await fetch("http://127.0.0.1:8000/api/ipl/teams"
             );
 
 

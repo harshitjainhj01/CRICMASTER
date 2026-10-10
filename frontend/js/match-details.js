@@ -551,8 +551,7 @@ async function loadCommentary(
 
     try {
 
-        const response = await fetch(
-            `/api/ipl/matches/${encodeURIComponent(
+        const response = await fetch(`http://127.0.0.1:8000/api/ipl/matches/${encodeURIComponent(
                 matchId
             )}/commentary?innings=${inningsNumber}`
         );
@@ -704,8 +703,7 @@ async function loadMatch() {
            Load scorecard
         ----------------------------------- */
 
-        const response = await fetch(
-            `/api/ipl/matches/${encodeURIComponent(
+        const response = await fetch(`http://127.0.0.1:8000/api/ipl/matches/${encodeURIComponent(
                 matchId
             )}/scorecard/detailed`
         );
